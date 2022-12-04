@@ -10,11 +10,8 @@ fn main() -> std::result::Result<(), Box<dyn error::Error>> {
 
     let calories = string_to_total_calories(&input)?;
 
-    let part1_result = part1(&calories);
-    let part2_result = part2(&calories);
-
-    println!("{}", part1_result?);
-    println!("{}", part2_result?);
+    println!("{}", part1(&calories)?);
+    println!("{}", part2(&calories)?);
 
     Ok(())
 }
@@ -64,11 +61,7 @@ fn string_to_total_calories(input: &str) -> Result<Vec<u64>> {
 }
 
 fn part1(calories: &[u64]) -> Result<u64> {
-    if calories.len() == 0 {
-        return Err(Error::NotEnoughValues);
-    }
-
-    Ok(*calories.iter().max().unwrap()) // max will not fail due to the previous check
+    Ok(*calories.iter().max().ok_or(Error::NotEnoughValues)?)
 }
 
 fn part2(calories: &[u64]) -> Result<u64> {
