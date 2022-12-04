@@ -59,8 +59,42 @@ fn part2(input: &str) -> u64 {
     }
 
     if current > max {
-        max = current;
+        (max, max2, max3) = (current, max, max2);
+    } else if current > max2 {
+        (max2, max3) = (current, max2);
+    } else if current > max3 {
+        max3 = current;
     }
 
     return max + max2 + max3;
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    const TEST_INPUT: &str = "1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000";
+
+    #[test]
+    fn test_part1() {
+        assert_eq!(part1(&TEST_INPUT), 24000);
+    }
+
+    #[test]
+    fn test_part2() {
+        assert_eq!(part2(&TEST_INPUT), 45000);
+    }
 }
