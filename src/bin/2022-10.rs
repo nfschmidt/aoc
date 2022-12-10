@@ -23,14 +23,14 @@ fn part2(input: &str) -> String {
     let values = register_values(input);
     let mut screen = String::new();
 
-    for (cycle, register) in values.iter().take(240).enumerate() {
+    for (cycle, &register) in values.iter().take(240).enumerate() {
         if cycle > 0 && cycle % 40 == 0 {
             screen.push('\n');
         }
 
         let position = cycle as i32 % 40;
 
-        let is_lit = *register - 1 <= position && position <= *register + 1;
+        let is_lit = register - 1 <= position && position <= register + 1;
         screen.push(if is_lit { '#' } else { '.' })
     }
 
